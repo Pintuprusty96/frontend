@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        #container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* Creates three equal-width columns */
+      gap: 10px; /* Adjust the gap between grid items as needed */
+    }
+
+    #container > div {
+        height: 400px;
+        width: 400px;
+      background-color: #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    img{
+        width: 50%;
+        height: 50%;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!--  -->
+    </div>
+  </body>
+</html>
+<script>
+  const container = document.querySelector("#container");
+  //   fetch(`https://fakestoreapi.com/products`)
+  //     .then((res) => res.json())
+  //     .then((json) => console.log(json));
+
+  // let s= fetch()
+  // console.log(s);
+
+  // WHY fatch return promise?
+  //1.you are going to server
+  //2.server is going to take time?
+  //3. will it even talk to back? response?
+  // let url = "https://fakestoreapi.com/products";
+  // let mypromise =fetch(url);
+  // mypromise
+  // .then((res)=>{
+  //     return res.json()
+  // })
+  // .then((data)=>{console.log(data);})
+
+  /*
+   */
+  let url = "https://fakestoreapi.com/products";
+  async function api() {
+    try {
+      let res = await fetch(url);
+      let data = await res.json();
+      console.log(data);
+      appendprodouct(data)
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
+  api();
+  function appendprodouct(data) {
+    data.forEach(function (el) {
+      let div = document.createElement("div");
+
+      let category = document.createElement("p");
+      category = el.category;
+      let desciption = document.createElement("p");
+      desciption = el.description;
+      let img = document.createElement("img");
+      img.src = el.image;
+      let price = document.createElement("p");
+      price = el.price;
+      let rating = document.createElement("p");
+      rating = el.rating;
+      let title = document.createElement("p");
+      title = el.title;
+      div.append(category,desciption,img,price,title);
+      container.append(div)
+    });
+  }
+</script>
